@@ -1,19 +1,27 @@
 // LeetCode
 
-/**
- * Definition for singly-linked list.
- * function ListNode(val) {
- *     this.val = val;
- *     this.next = null;
- * }
- */
+// Add Two Numbers https://leetcode.com/problems/add-two-numbers
 
+// Definition for singly-linked list.
 function ListNode(val) {
     this.val = val;
     this.next = null;
 }
 
-var addTwoNumbers = function(l1, l2) {
+// Push array to linked list
+function arrToNode(arr) {
+    if (arr.length === 0) return;
+    let result = new ListNode(arr.shift());
+    let node = result
+    while (arr.length) {
+        node.next = (new ListNode(arr.shift()))
+        node = node.next
+    }
+    return result
+}
+
+// solution
+const addTwoNumbers = function(l1, l2) {
     let firstNum = []
     let secondNum = []
     
@@ -41,16 +49,7 @@ var addTwoNumbers = function(l1, l2) {
     return result
 };
 
-function arrToNode(arr) {
-  if (arr.length === 0) return;
-  let result = new ListNode(arr.shift());
-  let node = result
-  while (arr.length) {
-      node.next = (new ListNode(arr.shift()))
-      node = node.next
-  }
-  return result
-}
+
 
 //test 
 // let l1 = arrToNode([1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1])
