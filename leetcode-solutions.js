@@ -1,6 +1,7 @@
 // LeetCode
 
-// Add Two Numbers https://leetcode.com/problems/add-two-numbers
+// Add Two Numbers 
+// https://leetcode.com/problems/add-two-numbers
 
 // Definition for singly-linked list.
 function ListNode(val) {
@@ -54,5 +55,36 @@ const addTwoNumbers = function(l1, l2) {
 //test 
 // let l1 = arrToNode([1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1])
 // let l2 = arrToNode([5,6,4])
-
 // addTwoNumbers(l1, l2)
+
+
+// Longest Substring Without Repeating Characters
+// https://leetcode.com/problems/longest-substring-without-repeating-characters/
+
+const lengthOfLongestSubstring = function (str) {
+    let set = new Set();
+    let counts = [];
+
+    for (char of str) {
+        if (!set.has(char)) {
+            set.add(char)
+        } else {
+            counts.push(set.size)
+
+            let arr = Array.from(set.keys())
+            let newArr = arr.slice(arr.indexOf(char) + 1)
+
+            set.clear()
+            newArr.forEach(val => {
+                set.add(val)
+            })
+            set.add(char)
+        }
+    }
+    counts.push(set.size)
+
+    return Math.max(...counts)
+}
+
+//test
+// lengthOfLongestSubstring('dvdf') // -> 3
