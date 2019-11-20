@@ -88,3 +88,42 @@ const lengthOfLongestSubstring = function (str) {
 
 //test
 // lengthOfLongestSubstring('dvdf') // -> 3
+
+
+// ZigZag Conversion
+// https://leetcode.com/problems/zigzag-conversion/
+
+zigZag = (s, numRows) => {
+    // init hash[row] = chars
+    let hash = {}
+    // init current row integer at base value
+    let curRow = 0
+    // init direction flag
+    let dir_flag = -1
+
+    for (char of s) {
+        // add char to hash at key of current row
+        hash[curRow] ? hash[curRow] += (char) : hash[curRow] = char;
+
+        // increment or decrement current row on condition of direction flag
+        dir_flag === -1 ? curRow += 1 : curRow -= 1
+
+        // invert direction at maximum row and base row
+        if (curRow === numRows-1 || curRow === 0) dir_flag = -dir_flag
+    }
+
+    return Object.values(hash).join('')
+}
+
+// zigZag("PAYPALISHIRING", 3) // "PAHNAPLSIIGYIR"
+// console.log(zigZag("PAYPALISHIRING", 3));
+//  P   A   H   N
+//  A P L S I I G
+//  Y   I   R
+
+// zigZag("PAYPALISHIRING", 4) // "PINALSIGYAHRPI"
+// console.log(zigZag("PAYPALISHIRING", 4));
+//  P     I    N
+//  A   L S  I G
+//  Y A   H R
+//  P     I
