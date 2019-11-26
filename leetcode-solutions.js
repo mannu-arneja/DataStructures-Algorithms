@@ -85,9 +85,9 @@ const lengthOfLongestSubstring = function (str) {
 
     return Math.max(...counts)
 }
-
 //test
 // lengthOfLongestSubstring('dvdf') // -> 3
+
 
 
 // ZigZag Conversion
@@ -114,7 +114,7 @@ zigZag = (s, numRows) => {
 
     return Object.values(hash).join('')
 }
-
+//test
 // zigZag("PAYPALISHIRING", 3) // "PAHNAPLSIIGYIR"
 // console.log(zigZag("PAYPALISHIRING", 3));
 //  P   A   H   N
@@ -127,3 +127,57 @@ zigZag = (s, numRows) => {
 //  A   L S  I G
 //  Y A   H R
 //  P     I
+
+
+
+// Longest Palindromic Substring
+// https://leetcode.com/problems/longest-palindromic-substring/
+
+const longestPalindrome = function (s) {
+    let result = "";
+    let strTable = Array.from({ length: s.length }, () => new Array(s.length).fill(false))
+
+    // one-char palindrome
+    for (let i = 0; i < s.length; i++) {
+        strTable[i][i] = true
+
+        result = s[i]
+    }
+
+    // two-char palindrome
+    for (let i = 0; i < s.length - 1; i++) {
+        if (s[i] === s[i + 1]) {
+            strTable[i][i + 1] = true
+
+            result = s.substring(i, i + 2)
+        }
+    }
+
+    // >2 char palindrome
+    for (let k = 2; k <= s.length; k++) {
+        for (let i = 0; i <= s.length - k; i++) {
+            j = i + k - 1
+
+            if (s[i] === s[j] && strTable[i + 1][j - 1] === true) {
+                strTable[i][j] = true
+
+                result = k > result.length ? s.substring(i, j + 1) : result
+            }
+        }
+    }
+    return result
+}
+// test
+// longestPalindrome('racecar')
+// console.table(strTable)
+// ┌─────────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
+// │ (index) │   0   │   1   │   2   │   3   │   4   │   5   │   6   │
+// ├─────────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+// │    0    │ true  │ false │ false │ false │ false │ false │ true  │
+// │    1    │ false │ true  │ false │ false │ false │ true  │ false │
+// │    2    │ false │ false │ true  │ false │ true  │ false │ false │
+// │    3    │ false │ false │ false │ true  │ false │ false │ false │
+// │    4    │ false │ false │ false │ false │ true  │ false │ false │
+// │    5    │ false │ false │ false │ false │ false │ true  │ false │
+// │    6    │ false │ false │ false │ false │ false │ false │ true  │
+// └─────────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘ 
