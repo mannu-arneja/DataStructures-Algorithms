@@ -181,3 +181,26 @@ const longestPalindrome = function (s) {
 // │    5    │ false │ false │ false │ false │ false │ true  │ false │
 // │    6    │ false │ false │ false │ false │ false │ false │ true  │
 // └─────────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘ 
+
+// solution 2: brute force
+const longestPalindrome = function (s) {
+    if (!s.length) return s
+    let result = "";
+    function isPalindrome(str) {
+        return str === str.split('').reverse().join('')
+    }
+
+    for (let i = 0; i < s.length; i++) {
+        let char = s[i];
+        let nextSameCharIdx = s.indexOf(char, i + 1);
+        while (nextSameCharIdx != -1) {
+            let sub = s.slice(i, nextSameCharIdx + 1)
+            if (isPalindrome(sub) && sub.length > result.length) {
+                result = sub
+            } else {
+                nextSameCharIdx = s.indexOf(char, nextSameCharIdx + 1)
+            }
+        }
+    }
+    return result.length === 0 ? s[0] : result
+}
