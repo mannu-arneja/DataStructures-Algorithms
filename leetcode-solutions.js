@@ -204,3 +204,27 @@ const longestPalindrome = function (s) {
     }
     return result.length === 0 ? s[0] : result
 }
+
+
+
+// Container With Most Water
+// https://leetcode.com/problems/container-with-most-water/
+
+let maxArea = function(height) {
+    let highest = 0, i = 0, j = height.length-1;
+
+    while (i < j) {
+        // current area = heighest of the two endpoints * distance between
+        let curArea = Math.min(height[i], height[j]) * (j - i);
+        
+        // keep max current
+        highest = highest > curArea ? highest : curArea;
+
+        // increment endpoint that is shortest so that next value can possibly have a greater area
+        height[i] < height[j] ? i++ : j--;
+    }
+
+    return highest
+}
+// test
+// console.log(maxArea([1,8,6,2,5,4,8,3,7]))
