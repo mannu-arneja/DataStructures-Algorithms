@@ -228,3 +228,38 @@ let maxArea = function(height) {
 }
 // test
 // console.log(maxArea([1,8,6,2,5,4,8,3,7]))
+
+
+
+// Median of Two Sorted Arrays
+// https://leetcode.com/problems/median-of-two-sorted-arrays/
+
+const findMedianSortedArrays = function (nums1, nums2) {
+
+    function merge(arr1, arr2) {
+        let merged = []
+
+        while (arr1.length > 0 && arr2.length > 0) {
+            if (arr1[0] < arr2[0]) {
+                merged.push(arr1.shift())
+            } else {
+                merged.push(arr2.shift())
+            }
+        }
+        return merged.concat(arr1, arr2)
+    }
+
+    let newArr = merge(nums1, nums2)
+    let mid = newArr.length / 2
+
+    if (newArr.length % 2 === 1) {
+
+        return newArr[Math.floor(mid)]
+    } else {
+        return (newArr[mid] + newArr[mid - 1]) / 2
+    }
+
+};
+
+//test
+// console.log(findMedianSortedArrays([1, 3], [2, 4]))
