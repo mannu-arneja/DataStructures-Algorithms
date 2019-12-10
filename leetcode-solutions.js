@@ -263,3 +263,39 @@ const findMedianSortedArrays = function (nums1, nums2) {
 
 //test
 // console.log(findMedianSortedArrays([1, 3], [2, 4]))
+
+
+
+// String/ASCII to Integer (atoi)
+// https://leetcode.com/problems/string-to-integer-atoi/
+
+const myAtoi = function (str) {
+    const INT_MIN = Math.pow(-2, 31)
+    const INT_MAX = Math.pow(2, 31) - 1
+
+    const strTrim = str.trim()
+    if (!strTrim) return 0
+
+    const re = /[0-9]+/
+    if (strTrim[0] === '-' || strTrim[0] === '+') {
+        if (!strTrim[1] || !strTrim[1].match(re)) return 0
+    } else {
+        if (!strTrim[0].match(re)) return 0
+    }
+
+    const match = strTrim.match(re)
+    if (!match) return 0
+
+    let int = parseInt(match[0])
+    int = strTrim[match.index - 1] === "-" ? -int : int
+
+    if (int > INT_MAX) return INT_MAX
+    if (int < INT_MIN) return INT_MIN
+
+    return int
+};
+
+// test
+// console.log(myAtoi("      -42")) // -42
+// console.log(myAtoi("3.187318")) // 3
+// console.log(myAtoi("-91283472332")) // -2147483648
