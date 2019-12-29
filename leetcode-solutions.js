@@ -299,3 +299,99 @@ const myAtoi = function (str) {
 // console.log(myAtoi("      -42")) // -42
 // console.log(myAtoi("3.187318")) // 3
 // console.log(myAtoi("-91283472332")) // -2147483648
+
+
+
+// Integer to Roman
+// https://leetcode.com/problems/integer-to-roman/
+
+var intToRoman = function (num) {
+    let str = ""
+    const int_map = {
+        1: 'I',
+        4: 'IV',
+        5: 'V',
+        9: 'IX',
+        10: 'X',
+        40: 'XL',
+        50: 'L',
+        90: 'XC',
+        100: 'C',
+        400: 'CD',
+        500: 'D',
+        900: 'CM',
+        1000: 'M',
+    }
+
+    let vals = Object.keys(int_map).reverse()
+    for (val of vals) {
+        if (num / val >= 1) {
+            str += int_map[val].repeat(Math.floor(num / val))
+            num %= val
+        }
+    }
+
+    return str
+};
+
+//console.log(intToRoman(2019))
+
+
+
+// Longest Common Prefix
+// https://leetcode.com/problems/longest-common-prefix/
+
+var longestCommonPrefix = function (strs) {
+    let prefix = ""
+    if (!strs.length) return prefix
+
+    for (i = 0; i < strs[0].length; i++) {
+        let char = strs[0][i]
+
+        for (str of strs) {
+            if (!str[i] || str[i] != char) {
+                return prefix;
+            }
+        }
+        prefix += char
+    }
+
+    return prefix;
+};
+
+// console.log(longestCommonPrefix(["flower", "flow", "flight"]))
+
+
+
+// 3 Sum
+// https://leetcode.com/problems/3sum/
+
+var threeSum = function (nums) {
+    let solution = []
+    nums.sort((a, b) => a - b);
+
+    for (i = 0; i < nums.length - 2; i++) {
+        if (i === 0 || (nums[i] !== nums[i - 1])) {
+            let dif = 0 - nums[i]
+            let lowerIdx = i + 1
+            let upperIdx = nums.length - 1
+            while (lowerIdx < upperIdx) {
+                if (nums[lowerIdx] + nums[upperIdx] < dif) {
+                    lowerIdx += 1
+                }
+                else if (nums[lowerIdx] + nums[upperIdx] > dif) {
+                    upperIdx -= 1
+                }
+                else if (nums[lowerIdx] + nums[upperIdx] === dif) {
+                    solution.push([nums[i], nums[lowerIdx], nums[upperIdx]])
+                    let curLower = nums[lowerIdx]
+                    while (nums[lowerIdx] === curLower) lowerIdx += 1
+                    let curUpper = nums[upperIdx]
+                    while (nums[upperIdx] === curUpper) upperIdx -= 1
+                }
+            }
+        }
+    }
+
+    return solution
+};
