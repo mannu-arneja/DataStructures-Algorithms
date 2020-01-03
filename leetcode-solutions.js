@@ -402,32 +402,29 @@ var threeSum = function (nums) {
 //  https://leetcode.com/problems/3sum-closest/
 
 var threeSumClosest = function (nums, target) {
-    let closest = null;
+    let closest = nums[0] + nums[1] + nums[nums.length - 1]
     nums.sort((a, b) => a - b)
 
     for (let i = 0; i < nums.length - 2; i++) {
         if (i === 0 || nums[i] !== nums[i - 1]) {
             let lowerIdx = i + 1
             let upperIdx = nums.length - 1
-            if (closest === null) {
-                closest = nums[lowerIdx] + nums[upperIdx] + nums[i]
-            }
+
             while (lowerIdx < upperIdx) {
                 let curSum = nums[lowerIdx] + nums[upperIdx] + nums[i]
+
                 if (curSum === target) {
                     return curSum
                 }
                 else if (curSum < target) {
-                    if (Math.abs(curSum - target) < Math.abs(closest - target)) {
-                        closest = curSum;
-                    }
                     lowerIdx += 1
                 }
                 else if (curSum > target) {
-                    if (Math.abs(curSum - target) < Math.abs(closest - target)) {
-                        closest = curSum;
-                    }
                     upperIdx -= 1
+                }
+
+                if (Math.abs(curSum - target) < Math.abs(closest - target)) {
+                    closest = curSum;
                 }
             }
 
