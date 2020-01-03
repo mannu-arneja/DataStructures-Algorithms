@@ -433,3 +433,40 @@ var threeSumClosest = function (nums, target) {
 
     return closest
 };
+
+
+
+// Letter Combinations of a Phone Number
+// https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+
+var letterCombinations = function (digits) {
+    if (!digits.length) {
+        return []
+    }
+    const num_map = {
+        2: "abc",
+        3: "def",
+        4: "ghi",
+        5: "jkl",
+        6: "mno",
+        7: "pqrs",
+        8: "tuv",
+        9: "wxyz",
+    }
+    let arr = num_map[digits[0]].split('')
+    for (i = 1; i < digits.length; i++) {
+        let curArr = num_map[digits[i]].split('')
+        arr = perm(arr, curArr)
+    }
+    return arr
+};
+
+function perm(arr1, arr2) {
+    let result = [];
+    arr1.forEach(el1 => {
+        arr2.forEach(el2 => {
+            result.push(el1 + el2)
+        })
+    })
+    return result
+}
