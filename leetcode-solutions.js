@@ -470,3 +470,57 @@ function perm(arr1, arr2) {
     })
     return result
 }
+
+
+
+// 4 Sum
+// https://leetcode.com/problems/4sum/
+
+var threeSum = function (nums, target) {
+    let solution = []
+    nums.sort((a, b) => a - b);
+
+    for (let i = 0; i < nums.length - 2; i++) {
+        if (i === 0 || (nums[i] !== nums[i - 1])) {
+            let lowerIdx = i + 1
+            let upperIdx = nums.length - 1
+            while (lowerIdx < upperIdx) {
+                if (nums[i] + nums[lowerIdx] + nums[upperIdx] < target) {
+                    lowerIdx += 1
+                }
+                else if (nums[i] + nums[lowerIdx] + nums[upperIdx] > target) {
+                    upperIdx -= 1
+                }
+                else if (nums[i] + nums[lowerIdx] + nums[upperIdx] === target) {
+                    solution.push([nums[i], nums[lowerIdx], nums[upperIdx]])
+
+                    let curLower = nums[lowerIdx]
+                    while (nums[lowerIdx] === curLower) lowerIdx += 1
+                    let curUpper = nums[upperIdx]
+                    while (nums[upperIdx] === curUpper) upperIdx -= 1
+                }
+            }
+        }
+    }
+
+    return solution
+};
+
+var fourSum = function (nums, target) {
+    let result = [];
+    nums.sort((a, b) => a - b);
+
+    for (let i = 0; i < nums.length - 2; i++) {
+
+        if (i === 0 || nums[i] !== nums[i - 1]) {
+            let curNum = nums[i]
+            let threeResult = threeSum(nums.slice(i + 1), target - curNum)
+            threeResult.forEach(tri => {
+                result.push([curNum, ...tri])
+            })
+        }
+    }
+    return result
+};
+
+// console.log(fourSum([1, 0, -1, 0, -2, 2], 0))
