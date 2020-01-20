@@ -524,3 +524,34 @@ var fourSum = function (nums, target) {
 };
 
 // console.log(fourSum([1, 0, -1, 0, -2, 2], 0))
+
+
+
+// Remove nth node from end of list
+// https://leetcode.com/problems/remove-nth-node-from-end-of-list/
+
+var removeNthFromEnd = function(head, n) {
+    let dummy = new ListNode(0);
+    dummy.next = head
+    let iNode = dummy
+    let jNode = dummy
+
+    // advance second pointer only by n length
+    for (i = 1; i <= n+1; i++){
+        jNode = jNode.next
+    }
+
+    // advance both pointers maintaining distance until second hits end
+    while (jNode) {
+        jNode = jNode.next
+        iNode = iNode.next
+    }
+    
+    // remove nth node
+    iNode.next = iNode.next.next
+
+    return dummy.next
+};
+
+// let n1 = arrToNode([1,2,3,4,5])
+// console.log(removeNthFromEnd(n1, 2)) // 1>2>3>5
